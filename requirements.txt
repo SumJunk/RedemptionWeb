@@ -1,6 +1,3 @@
-flask
-cryptography
-srp
+Flask
+python-dotenv
 pymysql
-hashlib
-os
