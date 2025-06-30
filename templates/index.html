@@ -2,10 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>1212ThisJustATest</title>
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            display: flex;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>YO!</h1>
-    <p>Balls 🎉</p>
+
+<div class="navbar">
+    <a href="{{ url_for('home') }}">Home</a>
+    {% if logged_in %}
+        <span style="color:white; padding: 14px 20px;">Logged in as {{ username }}</span>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <a href="{{ url_for('register.register') }}">Register</a>
+    {% endif %}
+</div>
+
+<div class="content">
+    <h1>Welcome to AzerothCore Web Portal</h1>
+    {% if logged_in %}
+        <p>Hello {{ username }}, welcome back!</p>
+    {% else %}
+        <p>Select "Login" or "Register" from the tabs above.</p>
+    {% endif %}
+</div>
+
 </body>
 </html>
