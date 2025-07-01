@@ -26,7 +26,7 @@ def generate_srp6_verifier(username: str, password: str):
     h2_int = le_bytes_to_int(h2)
 
     G = 7
-    N = int("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB8", 16)
+    N = int("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16)
 
     verifier_int = pow(G, h2_int, N) #verifier_int = (G ^ h2_int) mod N
 
