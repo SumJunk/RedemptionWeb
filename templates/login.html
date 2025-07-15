@@ -1,23 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head><title>Login</title></head>
+<head>
+    <title>Login</title>    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            display: flex;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a, .navbar span {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
 <body>
-    <h2>Login</h2>
-    <form method="POST">
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br>
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-        <button type="submit">Login</button>
-    </form>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+
+    <!-- Navbar copied from index.html -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if session.logged_in %}
+            <span>Logged in as {{ session.username }}</span>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('register.register') }}">Register</a>
+        {% endif %}
+    </div>
+
+    <div class="content">
+        <h2>Login</h2>
+        <form method="POST">
+            <label>Username:</label><br>
+            <input type="text" name="username" required><br>
+            <label>Password:</label><br>
+            <input type="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>

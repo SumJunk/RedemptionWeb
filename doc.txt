@@ -1,0 +1,16 @@
+*connection
+The user "Render" is created in MySQL linked with its static IP address and granted privlages
+ to access acore_auth db, specifically account table. 
+ Grabs these environmental variables when connecting:
+ 
+DB_HOST
+DB_USER
+DB_PASSWORD
+DB_NAME
+DB_PORT
+
+magic link
+
+registration - captcha
+
+login - otp on login and register

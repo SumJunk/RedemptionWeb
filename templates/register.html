@@ -1,13 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head><title>Register</title></head>
+<head>
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            display: flex;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a, .navbar span {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .flash-message {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
 <body>
-  <h1>Register</h1>
-  <form method="POST">
-    <label>Username: <input name="username" required></label><br>
-    <label>Password: <input type="password" name="password" required></label><br>
-    <label>Email: <input type="email" name="email"></label><br>
-    <button type="submit">Register</button>
-  </form>
+
+    <!-- Navbar section -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if session.logged_in %}
+            <span>Logged in as {{ session.username }}</span>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('register.register') }}">Register</a>
+        {% endif %}
+    </div>
+
+    <div class="content">
+        <h2>Register</h2>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-message">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+    
+        <!-- Registration form -->
+        <form method="POST">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required><br>
+
+               <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+            <input type="submit" value="Register">
+        </form>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </div>
+
 </body>
 </html>
+
