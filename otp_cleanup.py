@@ -55,6 +55,4 @@ def revoke_expired_otps_and_ban():
         conn.close()
 
 if __name__ == "__main__":
-    while True:
         revoke_expired_otps_and_ban()
-        time.sleep(3600)  # Wait 1 hour before running again
