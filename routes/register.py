@@ -26,10 +26,14 @@ def send_otp_email(recipient_email, otp):
         server.login(os.environ.get('SMTP_USER'), os.environ.get('SMTP_PASSWORD')) # Authenticates with email server with Gmail and App Password.
         server.send_message(msg) # Sends MIME message
 
+def get_client_ip():
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    return ip.split(',')[0].strip() if ip else None
+
 @register_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        ip_address = request.remote_addr
+        ip_address = get_client_ip()
         username = request.form['username'].upper()
         password = request.form['password']
         email = request.form.get('email')
