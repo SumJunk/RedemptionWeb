@@ -99,6 +99,28 @@ def register():
                 )
                 conn.commit()
 
+                # Fetch the inserted account ID
+                cur.execute("SELECT id FROM account WHERE username = %s", (username,))
+                user = cur.fetchone()
+                user_id = user['id']
+
+                # Add an active ban for unverified status
+                cur.execute("""
+                    INSERT INTO account_banned (id, bandate, unbandate, bannedby, banreason, active)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                """, (
+                    user_id,
+                    0,          # Bandate (0 = immediate)
+                    0,          # Unbandate (0 = permanent or until revoked manually)
+                    'Apathy',   # Banned by
+                    'unverified',
+                    1           # Active
+                ))
+                conn.commit()
+
+
+
+
                  # Fetch the inserted user ID
                 cur.execute("SELECT id FROM account WHERE username = %s", (username,))
                 user = cur.fetchone()
